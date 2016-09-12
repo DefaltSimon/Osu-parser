@@ -13,7 +13,6 @@ import osu_parser
 
 path = "[path to your PhantomJS]"
 
-
 osu = osu_parser.OsuParser(selenium_path=path)
 user = osu.get_user_by_name("DefaltSimon")
 

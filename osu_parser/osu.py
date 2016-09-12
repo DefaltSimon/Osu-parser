@@ -82,7 +82,7 @@ class User(object):
         self.rank_world = kwargs.get("rank_world")
         self.rank_country = kwargs.get("rank_country")
 
-        self.performace = kwargs.get("performance")
+        self.performance = kwargs.get("performance")
         self.level = kwargs.get("level")
 
         self.hit_accuracy = kwargs.get("hit_accuracy")

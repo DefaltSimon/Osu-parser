@@ -140,6 +140,9 @@ class OsuParser:
             # Ignore cache if it's older than max_age
             else:
                 pass
+        
+        else:
+            log.info("Requesting user page for {}".format(username))
 
         # Use if selenium and phantomJS are installed and enabled
         # HIGHLY RECOMMENDED to install and use selenium

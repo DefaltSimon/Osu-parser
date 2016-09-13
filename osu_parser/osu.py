@@ -117,7 +117,7 @@ class OsuParser:
         log.info("Initialized. Selenium {}".format("installed. Path: {}".format(selenium_path) if webdriver else "not found, using minimal mode!"))
 
 
-    # @handle_exceptions
+    @handle_exceptions
     def get_user_by_name(self, username, selenium=True, allow_cache=True):
         """
         Gets a user profile by the username.

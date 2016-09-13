@@ -49,7 +49,7 @@ def clean(text):
 def handle_exceptions(fn):
     def handle(*args, **kwargs):
         try:
-            fn(*args, **kwargs)
+            return fn(*args, **kwargs)
         except:
             log.error("Something went wrong while executing function {}".format(fn.__name__))
             raise OsuParserError("could not finish {}".format(fn.__name__))

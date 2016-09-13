@@ -243,8 +243,6 @@ class OsuParser:
             max_combo=max_combo
         )
 
-        print("Creation took {}".format(time.time() - tm))
-
         self.cache[username] = obj
         self.ages[username] = int(time.time())
         return obj

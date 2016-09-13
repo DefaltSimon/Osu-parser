@@ -13,6 +13,7 @@ from urllib.request import urlopen
 from bs4 import BeautifulSoup
 
 __author__ = "DefaltSimon"
+__version__ = "0.2"
 __license__ = "MIT"
 
 things = [
@@ -111,6 +112,8 @@ class OsuParser:
         self.selenium_available = bool(webdriver)
         self.selenium_path = selenium_path
 
+        self.pjs = webdriver.PhantomJS(executable_path=selenium_path)
+
         log.info("Initialized. Selenium {}".format("installed. Path: {}".format(selenium_path) if webdriver else "not found, using minimal mode!"))
 
 
@@ -121,7 +124,7 @@ class OsuParser:
         :param username: string - username
         :param selenium: bool indicating if you want to use full browser Javascript support (making all features available but slowing it down)
         :param allow_cache: bool indicating if the cache is allowed to be used
-        :return: User object
+        :return: User object or None if the user does not exist
         """
         if not self.selenium_available:
             selenium = False
@@ -141,9 +144,11 @@ class OsuParser:
         # Use if selenium and phantomJS are installed and enabled
         # HIGHLY RECOMMENDED to install and use selenium
         if selenium:
-            a = webdriver.PhantomJS(executable_path=self.selenium_path)
-            a.get(user_search + url_encode(username))
-            u = a.page_source
+            # a = webdriver.PhantomJS(executable_path=self.selenium_path)
+            self.pjs.get(user_search + url_encode(username))
+            u = self.pjs.page_source
+
+            self.pjs.close()
 
         # Or just use urllib
         # WARNING! Not all functions are available when using this mode!
@@ -154,6 +159,11 @@ class OsuParser:
         # BS Instance
         sp = BeautifulSoup(u, "html.parser")
 
+        # Check if the user actually exists
+        if clean(sp.find("div", {"class": "paddingboth"}).text).startswith("The user you are looking for was not found"):
+            return None
+
+        tm = time.time()
         try:
             username = clean(sp.find("div", {"class": "profile-username"}).text)
         except AttributeError:
@@ -230,6 +240,8 @@ class OsuParser:
             max_combo=max_combo
         )
 
+        print("Creation took {}".format(time.time() - tm))
+
         self.cache[username] = obj
         self.ages[username] = int(time.time())
         return obj
@@ -240,10 +252,8 @@ class OsuParser:
 # o = OsuParser(selenium_path="phantomjs/phantomjs.exe")
 # while True:
 #     user = input("Name:")
-#
 #     t = time.time()
 #     user = o.get_user_by_name(user, selenium=True)
-#
 #     print(user.username, user.max_combo)
 #     print("Took {}".format(time.time() - t))
 #

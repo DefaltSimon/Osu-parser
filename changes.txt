@@ -1,2 +1,5 @@
+0.2
+- A VERY big speed improvement (from 9+ seconds to 3.5~)
+
 0.1
 - Initial version

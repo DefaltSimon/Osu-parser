@@ -3,7 +3,11 @@ Helps you get data from osu! (currently only about users, beatmaps "coming soon"
 
 
 ###Installing  
-To install, simply execute `python setup.py install`.  
+To install, you've got two options:  
+
+1. `pip install https://github.com/DefaltSimon/Osu-parser@master`  
+2. download the source code and execute `python setup.py install`.  
+
 Additionally, you must also download **PhantomJS** for your os from [here](http://phantomjs.org/download.html)  
   
 ###Usage  

@@ -4,7 +4,7 @@ from setuptools import setup
 with open('requirements.txt') as f:
     requirements = f.read().splitlines()
 
-setup(name='osuds',
+setup(name='osu_ds',
       version='0.1',
       description='Python API wrapper for osu!',
       classifiers=[
@@ -17,6 +17,6 @@ setup(name='osuds',
       author='DefaltSimon',
       license='MIT',
       keywords="defaltsimon osu osu! parser api wrapper",
-      packages=['osuds'],
+      packages=['osu_ds'],
       install_requires=requirements,
       zip_safe=False)

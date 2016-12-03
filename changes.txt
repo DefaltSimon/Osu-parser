@@ -1,5 +1,2 @@
-0.2
-- A VERY big speed improvement (from 9+ seconds to 3.5~)
-
-0.1
-- Initial version
+0.1alpha
+- The browser implementation is available on the "browser-parser" branch, this is a complete rewrite for the api

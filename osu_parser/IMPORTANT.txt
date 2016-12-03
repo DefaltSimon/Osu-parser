@@ -1,4 +1,0 @@
-You should install PhantomJS to enable all functionality of this module.
-Download it from here: http://phantomjs.org/
-
-When instantiating the OsuParser, specify the path to PhantomJS (a single file is all you need)

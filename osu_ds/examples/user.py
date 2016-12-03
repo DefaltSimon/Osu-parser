@@ -2,7 +2,7 @@
 
 import osu_ds
 
-osu = osu_ds.OsuApi(api_key="a134cfc8caf7c29c873272821051dbaea40db1eb")
+osu = osu_ds.OsuApi(api_key="some_ley")
 
 ds = osu.get_user("DefaltSimon")
 

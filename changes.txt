@@ -1,2 +1,5 @@
+0.2
+- Bugs fixed
+
 0.1alpha
 - The browser implementation is available on the "browser-parser" branch, this is a complete rewrite for the api

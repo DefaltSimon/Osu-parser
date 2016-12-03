@@ -33,7 +33,10 @@ class OsuApi:
         return self._handle_user(Endpoints.USER, payload)
 
     def _handle_user(self, endpoint, payload):
-        data = self.req.get(endpoint, payload)[0]
-        # One-item list is returned by the api so we flatten it out
+        data = self.req.get(endpoint, payload)
 
-        return User(data)
+        if not data:
+            return None
+
+        # One-item list is returned by the api so we flatten it out
+        return User(data[0])

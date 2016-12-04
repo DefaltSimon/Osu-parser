@@ -37,6 +37,11 @@ class OsuApi:
 
         if not data:
             return None
+        else:
+            data = dict(data[0])
+
+        # Adds the profile url
+        data["profile_url"] = Endpoints.UserPage + data.get("username")
 
         # One-item list is returned by the api so we flatten it out
-        return User(data[0])
+        return User(data)

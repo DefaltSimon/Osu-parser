@@ -12,4 +12,4 @@ print(ds.name,
       ds.level,
       ds.playcount,
       ds.country_rank,
-      ds.profile_url)
+      ds.avatar_url)

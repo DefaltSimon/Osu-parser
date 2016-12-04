@@ -42,6 +42,7 @@ class OsuApi:
 
         # Adds the profile url
         data["profile_url"] = Endpoints.UserPage + data.get("username")
+        data["avatar_url"] = Endpoints.UserAvatar + data.get("user_id")
 
         # One-item list is returned by the api so we flatten it out
         return User(data)

@@ -23,7 +23,7 @@ class User(object):
     __slots__ = (
         "id", "name", "playcount", "ranked_score", "total_score",
         "pp", "world_rank", "country_rank", "level", "accuracy", "ss_amount", "s_amount",
-        "a_amount", "events", "country", "profile_url",
+        "a_amount", "events", "country", "profile_url", "avatar_url",
     )
 
     def __init__(self, data):

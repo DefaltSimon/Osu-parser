@@ -8,6 +8,7 @@ class Endpoints:
     USER = OSU_BASE + "/get_user"
     # User profile base url
     UserPage = "https://osu.ppy.sh/u/"
+    UserAvatar = "http://a.ppy.sh/"
 
 
 class Modes:

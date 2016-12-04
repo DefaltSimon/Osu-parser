@@ -1,4 +1,4 @@
-## Osu-parser
+## Osu-ds
 ![MIT](https://img.shields.io/badge/license-MIT-yellow.svg)  
 Helps you get data from osu! (currently only about users)  
 

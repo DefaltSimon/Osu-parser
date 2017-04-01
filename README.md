@@ -3,13 +3,13 @@
 Helps you get data from osu! (currently only about users)  
 
 
-###Installing  
+### Installing  
 To install, you've got two options:  
 
 1. `pip install git+https://github.com/DefaltSimon/osu-ds@master`  
 2. download the source code and execute `python setup.py install`. 
   
-###Usage  
+### Usage  
 A simple example:  
 ```python
 import osu_ds

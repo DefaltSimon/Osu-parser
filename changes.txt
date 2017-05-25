@@ -1,3 +1,6 @@
+0.3
+- Switched to aiohttp
+
 0.2.2
 - Added avatar url to User
 

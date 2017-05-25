@@ -1,5 +1,11 @@
 # coding=utf-8
-import requests
+import aiohttp
+
+try:
+    from ujson import loads
+except ImportError:
+    from json import loads
+
 from .errors import ConnectorException, InvalidParameter
 
 __author__ = "DefaltSimon"
@@ -13,10 +19,18 @@ class OsuConnector:
         self.key = str(api_key)
 
     @staticmethod
+    def _build_url(url, **fields):
+        if not url.endswith("?"):
+            url += "?"
+
+        field_list = ["{}={}".format(key, value) for key, value in fields.items()]
+        return str(url) + "&".join(field_list)
+
+    @staticmethod
     def validate(data):
         return dict((key, value) for key, value in data.items() if (key is not None and value is not None))
 
-    def get(self, endpoint, payload):
+    async def get(self, endpoint, payload):
         if type(payload) is not dict:
             raise InvalidParameter("payload was expected dict, got {}".format(type(payload).__name__))
 
@@ -26,14 +40,13 @@ class OsuConnector:
         if "k" not in payload.keys():
             payload["k"] = self.key
 
-        resp = requests.get(
-            url=endpoint,
-            params=payload
-        )
+        # Sends an async request and parses json with ujson
+        async with aiohttp.ClientSession() as session:
+            async with session.get(self._build_url(endpoint, **payload)) as resp:
+                if 200 < resp.status <= 300:
+                    # Anything other than 200 is not good
+                    raise ConnectorException("Response code is {} {}".format(resp.status, resp.reason))
 
-        if resp.status_code != 200:
-            # Anything other than 200 is not good
-            raise ConnectorException("Response code is {} {}".format(resp.status_code, resp.reason))
-
-        # Converts to json format
-        return resp.json()
+                # Converts to json format
+                text = await resp.text()
+                return loads(text)

@@ -1,2 +1,6 @@
 __pycache__/
 .idea/
+
+osu_ds.egg-info/
+build/
+dist/

@@ -5,7 +5,7 @@ with open('requirements.txt') as f:
     requirements = f.read().splitlines()
 
 setup(name='osu_ds',
-      version='0.1',
+      version='0.3',
       description='Python API wrapper for osu!',
       classifiers=[
           'Development Status :: 4 - Beta',

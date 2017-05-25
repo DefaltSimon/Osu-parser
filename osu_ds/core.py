@@ -22,7 +22,7 @@ class OsuApi:
         self.req = OsuConnector(self.api_key)
         log.debug("Ready")
 
-    def get_user(self, username, mode=Modes.OSU, history=1):
+    async def get_user(self, username, mode=Modes.OSU, history=1):
         payload = dict(
             u=str(username),
             m=mode,
@@ -30,10 +30,10 @@ class OsuApi:
             event_days=history,
         )
 
-        return self._handle_user(Endpoints.USER, payload)
+        return await self._handle_user(Endpoints.USER, payload)
 
-    def _handle_user(self, endpoint, payload):
-        data = self.req.get(endpoint, payload)
+    async def _handle_user(self, endpoint, payload):
+        data = await self.req.get(endpoint, payload)
 
         if not data:
             return None

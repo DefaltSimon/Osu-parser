@@ -18,6 +18,14 @@ class OsuConnector:
     def __init__(self, api_key):
         self.key = str(api_key)
 
+        self.session = None
+
+    def _handle_session(self):
+        if not self.session:
+            self.session = aiohttp.ClientSession(json_serialize=loads)
+
+        return self.session
+
     @staticmethod
     def _build_url(url, **fields):
         if not url.endswith("?"):
@@ -41,12 +49,12 @@ class OsuConnector:
             payload["k"] = self.key
 
         # Sends an async request and parses json with ujson
-        async with aiohttp.ClientSession() as session:
-            async with session.get(self._build_url(endpoint, **payload)) as resp:
-                if 200 < resp.status <= 300:
-                    # Anything other than 200 is not good
-                    raise ConnectorException("Response code is {} {}".format(resp.status, resp.reason))
+        session = self._handle_session()
 
-                # Converts to json format
-                text = await resp.text()
-                return loads(text)
+        async with session.get(self._build_url(endpoint, **payload)) as resp:
+            if 200 < resp.status <= 300:
+                # Anything other than 200 is not good
+                raise ConnectorException("Response code is {} {}".format(resp.status, resp.reason))
+
+            # Converts to json format
+            return await resp.json()

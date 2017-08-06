@@ -4,3 +4,5 @@ __pycache__/
 osu_ds.egg-info/
 build/
 dist/
+
+examples/*.ini

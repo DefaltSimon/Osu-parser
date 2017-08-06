@@ -1,10 +1,10 @@
 ## Osu-ds
 ![MIT](https://img.shields.io/badge/license-MIT-yellow.svg)  
-Helps you get data from osu! (currently only about users)  
+Lightweight module for getting user info from the osu! API.
 
 
 ### Installing  
-To install, you've got two options:  
+To install this library do either of these things:  
 
 1. `pip install git+https://github.com/DefaltSimon/osu-ds@master`  
 2. download the source code and execute `python setup.py install`. 

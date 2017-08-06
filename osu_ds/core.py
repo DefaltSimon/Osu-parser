@@ -1,5 +1,7 @@
 # coding=utf-8
 import logging
+import asyncio
+
 from .connector import OsuConnector
 from .utils import Endpoints, Modes
 from .osutypes import User
@@ -11,7 +13,7 @@ log.setLevel(logging.DEBUG)
 
 
 class OsuApi:
-    def __init__(self, api_key):
+    def __init__(self, api_key, loop = asyncio.get_event_loop()):
         """
         Creates an Osu instance to connect to osu!api
         :param api_key: the api key gotten from https://osu.ppy.sh/p/api
@@ -19,8 +21,8 @@ class OsuApi:
         """
         self.api_key = str(api_key)
 
-        self.req = OsuConnector(self.api_key)
-        log.debug("Ready")
+        self.req = OsuConnector(self.api_key, loop)
+        log.debug("OsuApi ready")
 
     async def get_user(self, username, mode=Modes.OSU, history=1):
         payload = dict(
@@ -40,7 +42,7 @@ class OsuApi:
         else:
             data = dict(data[0])
 
-        # Adds the profile url
+        # Adds the profile url and avatar
         data["profile_url"] = Endpoints.UserPage + data.get("username")
         data["avatar_url"] = Endpoints.UserAvatar + data.get("user_id")
 

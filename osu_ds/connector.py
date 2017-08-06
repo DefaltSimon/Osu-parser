@@ -15,16 +15,10 @@ class OsuConnector:
     """
     Used to communicate with osu!api via requests.
     """
-    def __init__(self, api_key):
+    def __init__(self, api_key, loop):
         self.key = str(api_key)
 
-        self.session = None
-
-    def _handle_session(self):
-        if not self.session:
-            self.session = aiohttp.ClientSession(json_serialize=loads)
-
-        return self.session
+        self.session = aiohttp.ClientSession(loop=loop, json_serialize=loads)
 
     @staticmethod
     def _build_url(url, **fields):
@@ -49,9 +43,7 @@ class OsuConnector:
             payload["k"] = self.key
 
         # Sends an async request and parses json with ujson
-        session = self._handle_session()
-
-        async with session.get(self._build_url(endpoint, **payload)) as resp:
+        async with self.session.get(self._build_url(endpoint, **payload)) as resp:
             if 200 < resp.status <= 300:
                 # Anything other than 200 is not good
                 raise ConnectorException("Response code is {} {}".format(resp.status, resp.reason))

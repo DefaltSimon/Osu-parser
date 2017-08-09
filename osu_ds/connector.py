@@ -49,4 +49,9 @@ class OsuConnector:
                 raise ConnectorException("Response code is {} {}".format(resp.status, resp.reason))
 
             # Converts to json format
-            return await resp.json()
+            json_obj = await resp.json(loads=loads)
+
+            if not json_obj:
+                raise TypeError("empty json object")
+
+            return json_obj
